@@ -55,10 +55,7 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 
 			var typ string
 			if vspec.Type == nil && len(vspec.Values) > 0 {
-				// "X = 1". With no type but a value. If the constant is untyped,
-				// skip this vspec and reset the remembered type.
 				typ = ""
-
 				// 获取类型转换的类型名字，例如 const OK = T(2)
 				ce, ok := vspec.Values[0].(*ast.CallExpr)
 				if ok {
