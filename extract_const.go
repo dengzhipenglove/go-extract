@@ -1,4 +1,4 @@
-package gotool
+package goextract
 
 import (
 	"go/ast"

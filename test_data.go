@@ -1,4 +1,4 @@
-package gotool
+package goextract
 
 // 常量注释
 const CONST_ONE = "one" // 常量注释
