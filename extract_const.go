@@ -10,7 +10,6 @@ import (
 	"strings"
 )
 
-// 获取文件中的常量，底层类型为 整型和字符串
 type ConstIdentItem struct {
 	Name        string
 	TypeName    string
@@ -57,7 +56,7 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 			var typ string
 			if vspec.Type == nil && len(vspec.Values) > 0 {
 				typ = ""
-				// 获取类型转换的类型名字，例如 const OK = T(2)
+				//  const OK = T(2)
 				ce, ok := vspec.Values[0].(*ast.CallExpr)
 				if ok {
 					id, ok := ce.Fun.(*ast.Ident)
@@ -75,7 +74,7 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 				}
 
 			}
-			// 指定了类型，那么类型不匹配不需要
+
 			if typeName != "" && typeName != typ {
 				continue
 			}
