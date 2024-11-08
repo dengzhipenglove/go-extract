@@ -7,10 +7,9 @@ import (
 	"go/parser"
 	"go/token"
 	"go/types"
-	"strings"
 )
 
-type ConstIdentItem struct {
+type IdentItem struct {
 	Name        string
 	TypeName    string
 	Value       int64
@@ -19,9 +18,9 @@ type ConstIdentItem struct {
 	Comment     string
 }
 
-func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdentItem, error) {
+func ExtractGoFileConst(filePath string, typeName string) (string, []*IdentItem, error) {
 	var pkgName string
-	var res = []*ConstIdentItem{}
+	var res = []*IdentItem{}
 
 	fset := token.NewFileSet()
 	astFile, err := parser.ParseFile(fset, filePath, nil, parser.ParseComments)
@@ -95,7 +94,7 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 					comment = vspec.Comment.Text()
 				}
 
-				resItem := ConstIdentItem{}
+				resItem := IdentItem{}
 
 				kst := obj.(*types.Const)
 
@@ -109,7 +108,7 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 					resItem.Value, ok = constant.Int64Val(kst.Val())
 					resItem.IsInteger = true
 				} else if basic.Info()&types.IsString > 0 {
-					resItem.ValueString = strings.Trim(kst.Val().ExactString(), "\"")
+					resItem.ValueString = constant.StringVal(kst.Val())
 				} else {
 					//panic("ident must be interger or string" + name.Name)
 					break
