@@ -1,18 +1,15 @@
-
-package main
+package gotool
 
 import (
-	"fmt"
 	"go/ast"
 	"go/constant"
 	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
-	"reflect"
 )
 
-// 获取文件中的常量，而且底层类型为 整型和字符串
+// 获取文件中的常量，底层类型为 整型和字符串
 type ConstIdentItem struct {
 	Name        string
 	TypeName    string
@@ -22,7 +19,7 @@ type ConstIdentItem struct {
 	Comment     string
 }
 
-func extract_GoFile_Const_2(filePath string, typeName string) (string, []*ConstIdentItem, error) {
+func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdentItem, error) {
 	var pkgName string
 	var res = []*ConstIdentItem{}
 
@@ -107,7 +104,6 @@ func extract_GoFile_Const_2(filePath string, typeName string) (string, []*ConstI
 				kst := obj.(*types.Const)
 
 				basic := obj.Type().Underlying().(*types.Basic)
-				//fmt.Println(obj.Name(), "-------", kst.Val(), "basicInfo", basic.Info(), "kinfo", basic.Name(), "kind", basic.Kind())
 
 				resItem.Name = name.Name
 				resItem.ValueString = kst.Val().ExactString()
