@@ -13,5 +13,4 @@ func TestExtractConst(t *testing.T) {
 	assert.Empty(t, err)
 	pretty.Print(pkgName)
 	pretty.Print(constdata)
-
 }

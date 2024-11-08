@@ -7,6 +7,7 @@ import (
 	"go/parser"
 	"go/token"
 	"go/types"
+	"strings"
 )
 
 // 获取文件中的常量，底层类型为 整型和字符串
@@ -108,8 +109,11 @@ func ExtractGoFileConst(filePath string, typeName string) (string, []*ConstIdent
 				if basic.Info()&types.IsInteger > 0 {
 					resItem.Value, ok = constant.Int64Val(kst.Val())
 					resItem.IsInteger = true
-				} else if basic.Info()&types.IsString == 0 {
-					panic("ident must be interger or string" + name.Name)
+				} else if basic.Info()&types.IsString > 0 {
+					resItem.ValueString = strings.Trim(kst.Val().ExactString(), "\"")
+				} else {
+					//panic("ident must be interger or string" + name.Name)
+					break
 				}
 
 				resItem.Comment = comment
