@@ -18,10 +18,15 @@ type IdentItem struct {
 	Comment     string
 }
 
-func ExtractGoFileConst(filePath string, typeName string) (string, []*IdentItem, error) {
+func ExtractGoFileConst(filePath string, typeNames ...string) (string, []*IdentItem, error) {
 	var pkgName string
 	var res = []*IdentItem{}
+	var typeName string
 
+	if len(typeNames) > 0 {
+		typeName = typeNames[0]
+	}
+	
 	fset := token.NewFileSet()
 	astFile, err := parser.ParseFile(fset, filePath, nil, parser.ParseComments)
 	if err != nil {
