@@ -1,7 +1,6 @@
 package goextract
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/kr/pretty"

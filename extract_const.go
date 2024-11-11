@@ -26,7 +26,7 @@ func ExtractGoFileConst(filePath string, typeNames ...string) (string, []*IdentI
 	if len(typeNames) > 0 {
 		typeName = typeNames[0]
 	}
-	
+
 	fset := token.NewFileSet()
 	astFile, err := parser.ParseFile(fset, filePath, nil, parser.ParseComments)
 	if err != nil {
