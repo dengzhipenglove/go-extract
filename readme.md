@@ -2,6 +2,6 @@
 
 ```
 
-pkgName, datas, err := ExtractGoFileConst("./test_data.go", "")
+pkgName, datas, err := ExtractGoFileConst("./test_data.go")
 
 ```
